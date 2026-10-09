@@ -40,13 +40,13 @@ export interface Category {
     icon: string;
 }
 
-async function fetcher<T>(endpoint: string): Promise<T> {
+async function fetcher<T>(endpoint: string): Promise<T | null> {
     // Try primary URL first
     try {
         const res = await fetch(`${BASE_URL}${endpoint}`, {
             next: { revalidate: 3600 },
         });
-        if (res.ok) return res.json();
+        if (res.ok) return await res.json();
     } catch {
         // Fall through to alternate
     }
@@ -56,61 +56,40 @@ async function fetcher<T>(endpoint: string): Promise<T> {
         const res2 = await fetch(`${ALT_BASE_URL}${endpoint}`, {
             next: { revalidate: 3600 },
         });
-        if (res2.ok) return res2.json();
+        if (res2.ok) return await res2.json();
     } catch {
         // Fall through
     }
 
-    throw new Error(`API error on ${endpoint}`);
+    // Graceful fallback when remote API is rate-limited (429) or offline
+    return null;
 }
 
 export async function getAllProducts(): Promise<Product[]> {
-    try {
-        return await fetcher<Product[]>("/products");
-    } catch (err) {
-        console.error("Failed to fetch all products:", err);
-        return [];
-    }
+    const data = await fetcher<Product[]>("/products");
+    return data || [];
 }
 
 export async function getProductsByCategory(
     category: string,
 ): Promise<Product[]> {
-    try {
-        return await fetcher<Product[]>(
-            `/products?category=${encodeURIComponent(category)}`,
-        );
-    } catch (err) {
-        console.error(`Failed to fetch products for ${category}:`, err);
-        return [];
-    }
+    const data = await fetcher<Product[]>(
+        `/products?category=${encodeURIComponent(category)}`,
+    );
+    return data || [];
 }
 
 export async function getSingleProduct(id: string): Promise<Product | null> {
-    try {
-        return await fetcher<Product>(`/products/${id}`);
-    } catch (err) {
-        console.error(`Failed to fetch product ${id}:`, err);
-        return null;
-    }
+    return await fetcher<Product>(`/products/${id}`);
 }
 
 export async function getCategories(): Promise<Category[]> {
-    try {
-        return await fetcher<Category[]>("/categories");
-    } catch (err) {
-        console.error("Failed to fetch categories:", err);
-        return [];
-    }
+    const data = await fetcher<Category[]>("/categories");
+    return data || [];
 }
 
 export async function getSingleCategory(
     slug: string,
 ): Promise<Category | null> {
-    try {
-        return await fetcher<Category>(`/categories/${slug}`);
-    } catch (err) {
-        console.error(`Failed to fetch category ${slug}:`, err);
-        return null;
-    }
+    return await fetcher<Category>(`/categories/${slug}`);
 }
