@@ -97,7 +97,7 @@ export default function UpdateProfilePage() {
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:border-green-500 text-sm"
+                                className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-gray-900 font-medium focus:outline-none focus:border-green-500 text-sm"
                                 placeholder="আপনার পূর্ণ নাম লিখুন"
                                 required
                             />

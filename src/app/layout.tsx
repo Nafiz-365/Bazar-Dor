@@ -25,8 +25,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="bn" className={hindSiliguri.variable}>
-            <body className="font-bengali bg-gray-50 min-h-screen flex flex-col">
+        <html lang="bn" data-theme="light" className={hindSiliguri.variable}>
+            <body className="font-bengali bg-gray-50 text-gray-900 min-h-screen flex flex-col">
                 {/* Navbar */}
                 <Navbar />
                 {/* Price Ticker */}
