@@ -1,1 +1,29 @@
 @import "tailwindcss";
+@plugin "daisyui";
+
+@theme {
+    --font-bengali: "Noto Sans Bengali", sans-serif;
+}
+
+/* Price Ticker Marquee Animation */
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 40s linear infinite;
+}
+
+/* Hide scrollbar for category nav */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
