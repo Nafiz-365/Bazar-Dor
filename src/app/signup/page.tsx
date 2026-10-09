@@ -15,17 +15,23 @@ export default function SignUpPage() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [socialLoading, setSocialLoading] = useState<string | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setErrorMsg(null);
 
         if (password !== confirmPassword) {
-            toast.error("পাসওয়ার্ড মিলছে না");
+            const msg = "পাসওয়ার্ড নিশ্চিতকরণের সাথে মিলছে না";
+            setErrorMsg(msg);
+            toast.error(msg);
             return;
         }
 
         if (password.length < 8) {
-            toast.error("পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে");
+            const msg = "পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে";
+            setErrorMsg(msg);
+            toast.error(msg);
             return;
         }
 
@@ -33,13 +39,17 @@ export default function SignUpPage() {
         try {
             const res = await signUp.email({ name, email, password });
             if (res?.error) {
-                toast.error(res.error.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে");
+                const msg = res.error.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে। আবার চেষ্টা করুন।";
+                setErrorMsg(msg);
+                toast.error(msg);
             } else {
                 toast.success("অ্যাকাউন্ট তৈরি সফল! এখন সাইন ইন করুন");
                 router.push("/signin");
             }
-        } catch (err) {
-            toast.error("রেজিস্ট্রেশন ব্যর্থ হয়েছে");
+        } catch (err: any) {
+            const msg = err?.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে। দয়া করে আবার চেষ্টা করুন।";
+            setErrorMsg(msg);
+            toast.error(msg);
             console.error(err);
         } finally {
             setLoading(false);
@@ -47,11 +57,20 @@ export default function SignUpPage() {
     };
 
     const handleSocial = async (provider: "google" | "github") => {
+        setErrorMsg(null);
         setSocialLoading(provider);
         try {
-            await signIn.social({ provider, callbackURL: "/" });
-        } catch (err) {
-            toast.error(`${provider} দিয়ে সাইন আপ ব্যর্থ হয়েছে`);
+            const res = await signIn.social({ provider, callbackURL: "/" });
+            if (res?.error) {
+                const msg = `${provider === "google" ? "গুগল" : "গিটহাব"} দিয়ে সাইন আপ করতে সমস্যা হয়েছে। অনুগ্রহ করে পরিবেশ ভেরিয়েবল চেক করুন।`;
+                setErrorMsg(msg);
+                toast.error(msg);
+            }
+        } catch (err: any) {
+            const msg = `${provider === "google" ? "Google" : "GitHub"} সাইন আপ বর্তমানে কনফিগার করা নেই। দয়া করে ফর্ম পূরণ করে রেজিস্টার করুন।`;
+            setErrorMsg(msg);
+            toast.error(msg);
+        } finally {
             setSocialLoading(null);
         }
     };
@@ -65,6 +84,12 @@ export default function SignUpPage() {
                 <p className="text-sm text-gray-500 text-center mt-1">
                     বিনা খরচে সাইন আপ করে সব বিস্তারিত দাম দেখুন।
                 </p>
+
+                {errorMsg && (
+                    <div className="mt-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                        {errorMsg}
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                     <div>

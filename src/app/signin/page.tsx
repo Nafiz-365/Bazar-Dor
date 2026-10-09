@@ -13,21 +13,27 @@ export default function SignInPage() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [socialLoading, setSocialLoading] = useState<string | null>(null);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setErrorMsg(null);
         setLoading(true);
         try {
             const res = await signIn.email({ email, password });
             if (res?.error) {
-                toast.error(res.error.message || "সাইন ইন ব্যর্থ হয়েছে");
+                const msg = res.error.message || "ইমেইল বা পাসওয়ার্ড ভুল হয়েছে";
+                setErrorMsg(msg);
+                toast.error(msg);
             } else {
                 toast.success("সাইন ইন সফল হয়েছে");
                 router.push("/");
                 router.refresh();
             }
-        } catch (err) {
-            toast.error("সাইন ইন ব্যর্থ হয়েছে");
+        } catch (err: any) {
+            const msg = err?.message || "সাইন ইন ব্যর্থ হয়েছে। দয়া করে আবার চেষ্টা করুন।";
+            setErrorMsg(msg);
+            toast.error(msg);
             console.error(err);
         } finally {
             setLoading(false);
@@ -35,11 +41,20 @@ export default function SignInPage() {
     };
 
     const handleSocial = async (provider: "google" | "github") => {
+        setErrorMsg(null);
         setSocialLoading(provider);
         try {
-            await signIn.social({ provider, callbackURL: "/" });
-        } catch (err) {
-            toast.error(`${provider} দিয়ে সাইন ইন ব্যর্থ হয়েছে`);
+            const res = await signIn.social({ provider, callbackURL: "/" });
+            if (res?.error) {
+                const msg = `${provider === "google" ? "গুগল" : "গিটহাব"} দিয়ে সাইন ইন করতে সমস্যা হয়েছে। অনুগ্রহ করে পরিবেশ ভেরিয়েবল (Client ID/Secret) চেক করুন।`;
+                setErrorMsg(msg);
+                toast.error(msg);
+            }
+        } catch (err: any) {
+            const msg = `${provider === "google" ? "Google" : "GitHub"} সাইন ইন বর্তমানে কনফিগার করা নেই। দয়া করে ইমেইল/পাসওয়ার্ড দিয়ে সাইন ইন করুন।`;
+            setErrorMsg(msg);
+            toast.error(msg);
+        } finally {
             setSocialLoading(null);
         }
     };
@@ -54,6 +69,12 @@ export default function SignInPage() {
                     বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্টে
                     ঢুকুন।
                 </p>
+
+                {errorMsg && (
+                    <div className="mt-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+                        {errorMsg}
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                     <div>
