@@ -5,6 +5,7 @@ import {
     formatPrice,
     getChangeColor,
     getChangeIcon,
+    categoryToUrlSlug,
 } from "@/lib/utils";
 
 interface Props {

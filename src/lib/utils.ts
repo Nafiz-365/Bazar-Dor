@@ -95,3 +95,21 @@ export function translateUnit(unit: string): string {
     };
     return map[unit] || unit;
 }
+
+// ============================================
+// Category Slug Helpers
+// ============================================
+
+/**
+ * Maps the product's internal `category` field value to the URL slug.
+ * The API's categories endpoint and the product's category field use different values
+ * for some categories (e.g. 'shobji' → 'sobji', 'dim-murgi' → 'dim-dui', 'moshla' → 'mosla').
+ */
+export function categoryToUrlSlug(apiCategory: string): string {
+    const map: Record<string, string> = {
+        shobji: "sobji",
+        "dim-murgi": "dim-dui",
+        moshla: "mosla",
+    };
+    return map[apiCategory] || apiCategory;
+}
