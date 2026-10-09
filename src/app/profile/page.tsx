@@ -1,48 +1,23 @@
 "use client";
 
-import { useSession, signOut, updateUser } from "@/lib/auth-client";
+import { useSession, signOut } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
-import { User, LogOut, Save, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { User, LogOut, Edit3 } from "lucide-react";
 import toast from "react-hot-toast";
 
 export default function ProfilePage() {
     const { data: session, isPending } = useSession();
     const router = useRouter();
-    const [name, setName] = useState("");
-    const [updating, setUpdating] = useState(false);
 
     useEffect(() => {
         if (!isPending && !session) {
             toast.error("প্রোফাইল দেখতে সাইন ইন করুন");
             router.push("/signin");
         }
-        if (session?.user?.name) {
-            setName(session.user.name);
-        }
     }, [session, isPending, router]);
-
-    const handleUpdate = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!name.trim()) {
-            toast.error("নাম খালি রাখা যাবে না");
-            return;
-        }
-        setUpdating(true);
-        try {
-            const res = await updateUser({ name: name.trim() });
-            if (res?.error) {
-                toast.error(res.error.message || "আপডেট ব্যর্থ হয়েছে");
-            } else {
-                toast.success("তথ্য সফলভাবে আপডেট হয়েছে");
-            }
-        } catch {
-            toast.error("আপডেট ব্যর্থ হয়েছে");
-        } finally {
-            setUpdating(false);
-        }
-    };
 
     const handleSignOut = async () => {
         try {
@@ -77,71 +52,58 @@ export default function ProfilePage() {
     return (
         <div className="max-w-2xl mx-auto px-4 py-12">
             <h1 className="text-2xl font-bold text-gray-800 mb-1">আমার প্রোফাইল</h1>
-            <p className="text-sm text-gray-500 mb-8">আপনার অ্যাকাউন্টের তথ্য এখানে দেখুন।</p>
+            <p className="text-sm text-gray-500 mb-8">আপনার অ্যাকাউন্টের বিবরণ ও সেটিংস।</p>
 
             {/* User Info Card */}
-            <div className="bg-white rounded-xl border border-gray-100 p-6 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center overflow-hidden shrink-0">
-                        {session.user.image ? (
-                            <Image
-                                src={session.user.image}
-                                alt={session.user.name || "User"}
-                                width={64}
-                                height={64}
-                                className="w-full h-full object-cover"
-                            />
-                        ) : (
-                            <User className="w-8 h-8 text-green-600" />
-                        )}
+            <div className="bg-white rounded-xl border border-gray-100 p-6 mb-6 shadow-sm">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div className="flex items-center gap-4">
+                        <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center overflow-hidden shrink-0">
+                            {session.user.image ? (
+                                <Image
+                                    src={session.user.image}
+                                    alt={session.user.name || "User"}
+                                    width={64}
+                                    height={64}
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <User className="w-8 h-8 text-green-600" />
+                            )}
+                        </div>
+                        <div>
+                            <p className="font-semibold text-gray-800 text-lg">
+                                {session.user.name}
+                            </p>
+                            <p className="text-sm text-gray-500">{session.user.email}</p>
+                        </div>
                     </div>
-                    <div>
-                        <p className="font-semibold text-gray-800 text-lg">
-                            {session.user.name}
-                        </p>
-                        <p className="text-sm text-gray-500">{session.user.email}</p>
-                    </div>
-                </div>
-                <button
-                    onClick={handleSignOut}
-                    className="flex items-center gap-2 border border-red-200 text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg text-sm font-medium transition"
-                >
-                    <LogOut className="w-4 h-4" />
-                    সাইন আউট
-                </button>
-            </div>
 
-            {/* Update Info Form */}
-            <div className="bg-white rounded-xl border border-gray-100 p-6">
-                <h2 className="font-semibold text-gray-800 mb-4">তথ্য</h2>
-                <form onSubmit={handleUpdate} className="space-y-4">
-                    <div>
-                        <label className="text-sm font-medium text-gray-700 block mb-1">
-                            নাম
-                        </label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:border-green-500 text-sm"
-                            placeholder="আপনার নাম লিখুন"
-                            required
-                        />
-                    </div>
                     <button
-                        type="submit"
-                        disabled={updating}
-                        className="w-full bg-green-600 text-white py-2.5 rounded-lg hover:bg-green-700 transition font-medium disabled:opacity-60 flex items-center justify-center gap-2"
+                        onClick={handleSignOut}
+                        className="flex items-center gap-2 border border-red-200 text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg text-sm font-medium transition cursor-pointer"
                     >
-                        {updating ? (
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                            <Save className="w-4 h-4" />
-                        )}
-                        {updating ? "আপডেট হচ্ছে..." : "আপডেট"}
+                        <LogOut className="w-4 h-4" />
+                        সাইন আউট
                     </button>
-                </form>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                        <h2 className="font-semibold text-gray-800 text-sm">ব্যক্তিগত তথ্য আপডেট</h2>
+                        <p className="text-xs text-gray-500 mt-0.5">আপনার নাম ও প্রোফাইলের তথ্য পরিবর্তন করুন</p>
+                    </div>
+                    {/* C3: Update Information button linking to /profile/update */}
+                    <Link
+                        href="/profile/update"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-green-600 text-white hover:bg-green-700 px-5 py-2.5 rounded-lg text-sm font-medium transition"
+                    >
+                        <Edit3 className="w-4 h-4" />
+                        তথ্য আপডেট করুন
+                    </Link>
+                </div>
             </div>
         </div>
     );
 }
+
