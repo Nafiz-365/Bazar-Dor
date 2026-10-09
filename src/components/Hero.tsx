@@ -1,12 +1,51 @@
 import Link from "next/link";
 
+function getBengaliDate(): string {
+    const now = new Date();
+    const days = [
+        "রবিবার",
+        "সোমবার",
+        "মঙ্গলবার",
+        "বুধবার",
+        "বৃহস্পতিবার",
+        "শুক্রবার",
+        "শনিবার",
+    ];
+    const months = [
+        "জানুয়ারি",
+        "ফেব্রুয়ারি",
+        "মার্চ",
+        "এপ্রিল",
+        "মে",
+        "জুন",
+        "জুলাই",
+        "আগস্ট",
+        "সেপ্টেম্বর",
+        "অক্টোবর",
+        "নভেম্বর",
+        "ডিসেম্বর",
+    ];
+    const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+    const toBn = (n: number) =>
+        n
+            .toString()
+            .replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
+
+    const day = days[now.getDay()];
+    const date = toBn(now.getDate());
+    const month = months[now.getMonth()];
+    const year = toBn(now.getFullYear());
+    return `${day}, ${date} ${month}, ${year}`;
+}
+
 export default function Hero() {
+    const todayDate = getBengaliDate();
     return (
-        <section className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 md:p-10 mt-6 flex flex-col md:flex-row items-center gap-8">
+        <section className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-6 md:p-10 mt-6 flex flex-col md:flex-row items-center gap-8">
             {/* Left: Text */}
             <div className="flex-1 w-full">
                 <span className="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full mb-3">
-                    সোমবার, ৬ অক্টোবর, ২০২৫
+                    {todayDate}
                 </span>
 
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight">

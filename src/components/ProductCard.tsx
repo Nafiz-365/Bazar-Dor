@@ -17,7 +17,7 @@ export default function ProductCard({ product }: Props) {
 
     return (
         <Link
-            href={`/product/${product.slug}`}
+            href={`/product/${product.id}`}
             className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-md hover:border-green-100 transition-all block"
         >
             {/* Emoji + Change badge */}

@@ -11,13 +11,51 @@ import Image from "next/image";
 const categories = [
     { slug: "chal", nameBn: "চাল", icon: "🍚" },
     { slug: "dal", nameBn: "ডাল", icon: "🫘" },
-    { slug: "tel", nameBn: "তেল", icon: "🫙" },
-    { slug: "shobji", nameBn: "সবজি", icon: "🥬" },
+    { slug: "tel", nameBn: "তেল", icon: "🛢️" },
+    { slug: "sobji", nameBn: "সবজি", icon: "🥬" },
     { slug: "mach", nameBn: "মাছ", icon: "🐟" },
     { slug: "mangsho", nameBn: "মাংস", icon: "🍗" },
-    { slug: "dim-murgi", nameBn: "ডিম-মুর্গি", icon: "🥚" },
-    { slug: "moshla", nameBn: "মসলা", icon: "🧄" },
+    { slug: "dim-dui", nameBn: "ডিম-দুধ", icon: "🥛" },
+    { slug: "mosla", nameBn: "মসলা", icon: "🌶️" },
 ];
+
+function getBengaliDate(): string {
+    const now = new Date();
+    const days = [
+        "রবিবার",
+        "সোমবার",
+        "মঙ্গলবার",
+        "বুধবার",
+        "বৃহস্পতিবার",
+        "শুক্রবার",
+        "শনিবার",
+    ];
+    const months = [
+        "জানুয়ারি",
+        "ফেব্রুয়ারি",
+        "মার্চ",
+        "এপ্রিল",
+        "মে",
+        "জুন",
+        "জুলাই",
+        "আগস্ট",
+        "সেপ্টেম্বর",
+        "অক্টোবর",
+        "নভেম্বর",
+        "ডিসেম্বর",
+    ];
+    const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
+    const toBn = (n: number) =>
+        n
+            .toString()
+            .replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
+
+    const day = days[now.getDay()];
+    const date = toBn(now.getDate());
+    const month = months[now.getMonth()];
+    const year = toBn(now.getFullYear());
+    return `${day}, ${date} ${month}, ${year}`;
+}
 
 const Navbar = () => {
     const { data: session } = useSession();
@@ -25,6 +63,7 @@ const Navbar = () => {
     const router = useRouter();
     const [mobileOpen, setMobileOpen] = useState(false);
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+    const todayDate = getBengaliDate();
 
     const handleSignOut = async () => {
         try {
@@ -51,7 +90,7 @@ const Navbar = () => {
                             বাজার দর
                         </h1>
                         <p className="text-xs text-gray-500 leading-tight">
-                            সোমবার, ৬ অক্টোবর, ২০২৫
+                            {todayDate}
                         </p>
                     </div>
                 </Link>
@@ -68,7 +107,9 @@ const Navbar = () => {
                                     {session.user.image ? (
                                         <Image
                                             src={session.user.image}
-                                            alt={session.user.name}
+                                            alt={session.user.name || "User"}
+                                            width={36}
+                                            height={36}
                                             className="w-full h-full object-cover"
                                         />
                                     ) : (
