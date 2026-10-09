@@ -9,6 +9,7 @@ import {
     getChangeColor,
     getChangeIcon,
     toBengaliNumber,
+    categoryToUrlSlug,
 } from "@/lib/utils";
 
 export const revalidate = 3600;
@@ -58,7 +59,7 @@ export default async function ProductDetailPage({
                 </Link>
                 <span>›</span>
                 <Link
-                    href={`/category/${product.category}`}
+                    href={`/category/${categoryToUrlSlug(product.category)}`}
                     className="hover:text-green-600"
                 >
                     {product.categoryNameBn}
