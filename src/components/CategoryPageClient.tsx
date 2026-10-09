@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import type { Product, Category } from "@/lib/api";
+import { useState, useMemo, useEffect } from "react";
+import type { Category, Product } from "@/lib/api";
 import ProductCard from "./ProductCard";
 import { toBengaliNumber } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
@@ -11,11 +11,41 @@ type SortOption = "default" | "price-asc" | "price-desc";
 
 interface Props {
     category: Category;
-    products: Product[];
+    apiFilter: string;
 }
 
-export default function CategoryPageClient({ category, products }: Props) {
+const BASE_URLS = [
+    "https://api.api-store.workers.dev/api/bazardor",
+    "https://api.abcz.workers.dev/api/bazardor",
+];
+
+async function fetchWithFallback(endpoint: string): Promise<Product[]> {
+    for (const base of BASE_URLS) {
+        try {
+            const res = await fetch(`${base}${endpoint}`);
+            if (res.ok) {
+                const data = await res.json();
+                return data;
+            }
+        } catch {
+            // try next
+        }
+    }
+    return [];
+}
+
+export default function CategoryPageClient({ category, apiFilter }: Props) {
     const [sort, setSort] = useState<SortOption>("default");
+    const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(true);
+        fetchWithFallback(`/products?category=${encodeURIComponent(apiFilter)}`)
+            .then((data) => setProducts(data))
+            .catch(() => setProducts([]))
+            .finally(() => setLoading(false));
+    }, [apiFilter]);
 
     const sortedProducts = useMemo(() => {
         const copy = [...products];
@@ -31,15 +61,16 @@ export default function CategoryPageClient({ category, products }: Props) {
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
             {/* Header */}
-            <div className="flex items-center gap-3 mb-6">
+            <div className="bg-white rounded-xl border border-gray-100 p-5 mb-5 flex items-center gap-4">
                 <span className="text-4xl">{category.icon}</span>
                 <div>
                     <h1 className="text-2xl font-bold text-gray-800">
                         {category.nameBn}
                     </h1>
                     <p className="text-sm text-gray-500">
-                        {toBengaliNumber(products.length)}টি পণ্যের আজকের দাম ও
-                        পরিবর্তন
+                        {loading
+                            ? "লোড হচ্ছে..."
+                            : `${toBengaliNumber(products.length)}টি পণ্যের আজকের দাম ও পরিবর্তন`}
                     </p>
                 </div>
             </div>
@@ -47,8 +78,9 @@ export default function CategoryPageClient({ category, products }: Props) {
             {/* Sort Bar */}
             <div className="bg-white rounded-xl border border-gray-100 p-3 flex items-center justify-between mb-5">
                 <span className="text-sm text-gray-500">
-                    মোট {toBengaliNumber(sortedProducts.length)}টি পণ্য দেখানো
-                    হচ্ছে
+                    {loading
+                        ? "লোড হচ্ছে..."
+                        : `মোট ${toBengaliNumber(sortedProducts.length)}টি পণ্য দেখানো হচ্ছে`}
                 </span>
 
                 <div className="flex items-center gap-2">
@@ -72,8 +104,20 @@ export default function CategoryPageClient({ category, products }: Props) {
                 </div>
             </div>
 
+            {/* Loading Skeleton */}
+            {loading && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                        <div
+                            key={i}
+                            className="bg-gray-100 rounded-xl h-44 animate-pulse"
+                        />
+                    ))}
+                </div>
+            )}
+
             {/* Empty state */}
-            {sortedProducts.length === 0 ? (
+            {!loading && sortedProducts.length === 0 && (
                 <div className="text-center py-20">
                     <div className="text-6xl mb-4">🔍</div>
                     <p className="text-gray-500 mb-6">
@@ -86,7 +130,10 @@ export default function CategoryPageClient({ category, products }: Props) {
                         হোম পেজে ফিরে যান
                     </Link>
                 </div>
-            ) : (
+            )}
+
+            {/* Products Grid */}
+            {!loading && sortedProducts.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {sortedProducts.map((product) => (
                         <ProductCard key={product.id} product={product} />

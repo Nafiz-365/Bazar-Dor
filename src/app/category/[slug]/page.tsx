@@ -1,19 +1,24 @@
 import { notFound } from "next/navigation";
-import { getProductsByCategory } from "@/lib/api";
 import CategoryPageClient from "@/components/CategoryPageClient";
+import type { Category } from "@/lib/api";
 
-const CATEGORY_INFO: Record<string, { nameBn: string; icon: string }> = {
-    chal: { nameBn: "চাল", icon: "🍚" },
-    dal: { nameBn: "ডাল", icon: "🫘" },
-    tel: { nameBn: "তেল", icon: "🛢️" },
-    sobji: { nameBn: "সবজি", icon: "🥬" },
-    mach: { nameBn: "মাছ", icon: "🐟" },
-    mangsho: { nameBn: "মাংস", icon: "🍗" },
-    "dim-dui": { nameBn: "ডিম-দুধ", icon: "🥛" },
-    mosla: { nameBn: "মসলা", icon: "🌶️" },
+// Slugs here match the product's category field in the API
+const CATEGORY_INFO: Record<
+    string,
+    { nameBn: string; icon: string; apiFilter: string }
+> = {
+    chal: { nameBn: "চাল", icon: "🍚", apiFilter: "chal" },
+    dal: { nameBn: "ডাল", icon: "🫘", apiFilter: "dal" },
+    tel: { nameBn: "তেল", icon: "🛢️", apiFilter: "tel" },
+    shobji: { nameBn: "সবজি", icon: "🥬", apiFilter: "shobji" },
+    sobji: { nameBn: "সবজি", icon: "🥬", apiFilter: "shobji" },
+    mach: { nameBn: "মাছ", icon: "🐟", apiFilter: "mach" },
+    mangsho: { nameBn: "মাংস", icon: "🍗", apiFilter: "mangsho" },
+    "dim-murgi": { nameBn: "ডিম-মুর্গি", icon: "🥚", apiFilter: "dim-murgi" },
+    "dim-dui": { nameBn: "ডিম-দুধ", icon: "🥛", apiFilter: "dim-murgi" },
+    moshla: { nameBn: "মসলা", icon: "🌶️", apiFilter: "moshla" },
+    mosla: { nameBn: "মসলা", icon: "🌶️", apiFilter: "moshla" },
 };
-
-export const revalidate = 3600;
 
 export default async function CategoryPage({
     params,
@@ -26,14 +31,17 @@ export default async function CategoryPage({
     const catInfo = CATEGORY_INFO[slug];
     if (!catInfo) notFound();
 
-    const products = await getProductsByCategory(slug).catch(() => []);
-
-    const category = {
+    const category: Category = {
         id: slug,
         slug,
         nameBn: catInfo.nameBn,
         icon: catInfo.icon,
     };
 
-    return <CategoryPageClient category={category} products={products} />;
+    return (
+        <CategoryPageClient
+            category={category}
+            apiFilter={catInfo.apiFilter}
+        />
+    );
 }
