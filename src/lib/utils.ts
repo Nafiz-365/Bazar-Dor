@@ -6,11 +6,16 @@
  * ইংরেজি সংখ্যাকে বাংলা সংখ্যায় convert করে
  * উদাহরণ: 148 → "১৪৮", 1850 → "১৮৫০"
  */
-export function toBengaliNumber(num: number | string): string {
+
+export function toBengaliNumber(
+    num: number | string | undefined | null,
+): string {
+    if (num === undefined || num === null || isNaN(Number(num))) {
+        return "০";
+    }
     const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
     return num.toString().replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
 }
-
 /**
  * কমা দিয়ে সংখ্যা format করে তারপর বাংলায় convert করে
  * উদাহরণ: 1850 → "১,৮৫০", 148 → "১৪৮"
@@ -24,7 +29,10 @@ export function formatPrice(price: number): string {
  * Percentage কে বাংলায় format করে
  * উদাহরণ: 2.1 → "২.১", 11.0 → "১১.০"
  */
-export function formatPercent(percent: number): string {
+export function formatPercent(percent: number | undefined | null): string {
+    if (percent === undefined || percent === null || isNaN(Number(percent))) {
+        return "০.০";
+    }
     const abs = Math.abs(percent).toFixed(1);
     return toBengaliNumber(abs);
 }

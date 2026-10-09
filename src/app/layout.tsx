@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import Navbar from "@/components/Navbar";
+import PriceTicker from "@/components/PriceTicker";
 
 const hindSiliguri = Hind_Siliguri({
-    weight: ["400", "500", "600", "700"],
-    variable: "--font-hind-siliguri",
-    subsets: ["latin", "bengali"],
+    weight: ["300", "400", "500", "600", "700"],
+    variable: "--font-bengali",
+    subsets: ["bengali", "latin"],
     display: "swap",
 });
 
@@ -16,13 +18,18 @@ export const metadata: Metadata = {
         "চাল, ডাল, তেল, সবজি, মাছ, মাংস, ডিম ও মসলার বাজারভিত্তিক দাম ও পরিবর্তন",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
     return (
-        <html
-            lang="en"
-            className={`${hindSiliguri.className} h-full antialiased`}
-        >
+        <html lang="bn" className={hindSiliguri.variable}>
             <body className="font-bengali bg-gray-50 min-h-screen flex flex-col">
+                {/* Navbar */}
+                <Navbar />
+                {/* Price Ticker */}
+                <PriceTicker />
                 <main className="flex-1">{children}</main>
                 <Toaster
                     position="top-center"
