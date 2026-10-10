@@ -25,11 +25,11 @@ export default function CategoryPageClient({
     const [loading, setLoading] = useState(initialProducts.length === 0);
 
     useEffect(() => {
-        // If initialProducts was already passed and matches, we don't need to refetch immediately
+        // If initialProducts was already passed from server, no client refetch needed
+        if (initialProducts.length > 0) return;
+
         let cancelled = false;
-        if (initialProducts.length === 0) {
-            setLoading(true);
-        }
+        setLoading(true);
         getProductsByCategory(apiFilter)
             .then((data) => {
                 if (!cancelled) {
@@ -37,7 +37,7 @@ export default function CategoryPageClient({
                 }
             })
             .catch(() => {
-                if (!cancelled && products.length === 0) {
+                if (!cancelled) {
                     setProducts([]);
                 }
             })
@@ -48,7 +48,7 @@ export default function CategoryPageClient({
         return () => {
             cancelled = true;
         };
-    }, [apiFilter]);
+    }, [apiFilter, initialProducts.length]);
 
     const sortedProducts = useMemo(() => {
         const copy = [...products];

@@ -50,6 +50,7 @@ export default async function CategoryPage({
 
     return (
         <CategoryPageClient
+            key={slug}
             category={category}
             apiFilter={catInfo.apiFilter}
             initialProducts={initialProducts}

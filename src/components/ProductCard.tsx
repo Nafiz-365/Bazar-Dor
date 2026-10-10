@@ -20,7 +20,7 @@ export default function ProductCard({ product }: Props) {
     return (
         <Link
             href={`/product/${product.id}`}
-            className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-md hover:border-green-100 transition-all block"
+            className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-md hover:border-green-100 transition-shadow transition-colors duration-200 block"
         >
             {/* Emoji + Change badge */}
             <div className="flex items-start justify-between">
