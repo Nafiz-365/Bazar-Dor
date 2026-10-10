@@ -27,9 +27,7 @@ function getBengaliDate(): string {
     ];
     const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
     const toBn = (n: number) =>
-        n
-            .toString()
-            .replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
+        n.toString().replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
 
     const day = days[now.getDay()];
     const date = toBn(now.getDate());

@@ -111,7 +111,9 @@ export default async function ProductDetailPage({
                     <p className="text-xs text-gray-500 mt-1">
                         টাকা / {translateUnit(product.unit)}
                     </p>
-                    <p className={`text-sm font-medium mt-2 ${getChangeColor(dir)}`}>
+                    <p
+                        className={`text-sm font-medium mt-2 ${getChangeColor(dir)}`}
+                    >
                         {getChangeIcon(dir)}{" "}
                         {toBengaliNumber(Math.abs(pct).toFixed(1))}%
                     </p>
@@ -131,7 +133,9 @@ export default async function ProductDetailPage({
                         }`}
                     >
                         <p className="text-xs text-gray-500 mb-1">{label}</p>
-                        <p className={`text-xl font-bold ${highlight ? "text-green-700" : "text-gray-800"}`}>
+                        <p
+                            className={`text-xl font-bold ${highlight ? "text-green-700" : "text-gray-800"}`}
+                        >
                             {formatPrice(price)}
                         </p>
                         <p className="text-xs text-gray-400 mt-0.5">
@@ -182,20 +186,39 @@ export default async function ProductDetailPage({
                     <table className="w-full text-sm">
                         <thead className="bg-gray-50">
                             <tr>
-                                <th className="text-left p-3 font-medium text-gray-600">বাজার</th>
-                                <th className="text-left p-3 font-medium text-gray-600">বিভাগ</th>
-                                <th className="text-right p-3 font-medium text-gray-600">সর্বনিম্ন</th>
-                                <th className="text-right p-3 font-medium text-gray-600">সর্বোচ্চ</th>
-                                <th className="text-right p-3 font-medium text-gray-600">গড়</th>
+                                <th className="text-left p-3 font-medium text-gray-600">
+                                    বাজার
+                                </th>
+                                <th className="text-left p-3 font-medium text-gray-600">
+                                    বিভাগ
+                                </th>
+                                <th className="text-right p-3 font-medium text-gray-600">
+                                    সর্বনিম্ন
+                                </th>
+                                <th className="text-right p-3 font-medium text-gray-600">
+                                    সর্বোচ্চ
+                                </th>
+                                <th className="text-right p-3 font-medium text-gray-600">
+                                    গড়
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {markets.map((market, i) => {
-                                const avg = Math.round((market.min + market.max) / 2);
+                                const avg = Math.round(
+                                    (market.min + market.max) / 2,
+                                );
                                 return (
-                                    <tr key={i} className="border-t border-gray-50 hover:bg-gray-50">
-                                        <td className="p-3 text-gray-800">{market.market}</td>
-                                        <td className="p-3 text-gray-500">{market.division}</td>
+                                    <tr
+                                        key={i}
+                                        className="border-t border-gray-50 hover:bg-gray-50"
+                                    >
+                                        <td className="p-3 text-gray-800">
+                                            {market.market}
+                                        </td>
+                                        <td className="p-3 text-gray-500">
+                                            {market.division}
+                                        </td>
                                         <td className="p-3 text-right text-green-600">
                                             {formatPrice(market.min)} টাকা
                                         </td>

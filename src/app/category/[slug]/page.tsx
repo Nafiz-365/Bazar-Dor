@@ -8,20 +8,20 @@ const CATEGORY_INFO: Record<
     string,
     { nameBn: string; icon: string; apiFilter: string }
 > = {
-    chal:       { nameBn: "চাল",       icon: "🍚",  apiFilter: "chal" },
-    dal:        { nameBn: "ডাল",       icon: "🫘",  apiFilter: "dal" },
-    tel:        { nameBn: "তেল",       icon: "🛢️", apiFilter: "tel" },
+    chal: { nameBn: "চাল", icon: "🍚", apiFilter: "chal" },
+    dal: { nameBn: "ডাল", icon: "🫘", apiFilter: "dal" },
+    tel: { nameBn: "তেল", icon: "🛢️", apiFilter: "tel" },
     // sobji = API value; shobji = old navbar slug (both supported)
-    sobji:      { nameBn: "সবজি",      icon: "🥬",  apiFilter: "sobji" },
-    shobji:     { nameBn: "সবজি",      icon: "🥬",  apiFilter: "sobji" },
-    mach:       { nameBn: "মাছ",       icon: "🐟",  apiFilter: "mach" },
-    mangsho:    { nameBn: "মাংস",      icon: "🍗",  apiFilter: "mangsho" },
+    sobji: { nameBn: "সবজি", icon: "🥬", apiFilter: "sobji" },
+    shobji: { nameBn: "সবজি", icon: "🥬", apiFilter: "sobji" },
+    mach: { nameBn: "মাছ", icon: "🐟", apiFilter: "mach" },
+    mangsho: { nameBn: "মাংস", icon: "🍗", apiFilter: "mangsho" },
     // dim-dui = API value; dim-murgi = old navbar slug (both supported)
-    "dim-dui":  { nameBn: "ডিম-দুধ",  icon: "🥛",  apiFilter: "dim-dui" },
-    "dim-murgi":{ nameBn: "ডিম-মুর্গি", icon: "🥚", apiFilter: "dim-dui" },
+    "dim-dui": { nameBn: "ডিম-দুধ", icon: "🥛", apiFilter: "dim-dui" },
+    "dim-murgi": { nameBn: "ডিম-মুর্গি", icon: "🥚", apiFilter: "dim-dui" },
     // mosla = API value; moshla = old navbar slug (both supported)
-    mosla:      { nameBn: "মসলা",      icon: "🌶️", apiFilter: "mosla" },
-    moshla:     { nameBn: "মসলা",      icon: "🌶️", apiFilter: "mosla" },
+    mosla: { nameBn: "মসলা", icon: "🌶️", apiFilter: "mosla" },
+    moshla: { nameBn: "মসলা", icon: "🌶️", apiFilter: "mosla" },
 };
 
 import { getProductsByCategory } from "@/lib/api";

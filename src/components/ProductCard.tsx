@@ -5,7 +5,6 @@ import {
     formatPrice,
     getChangeColor,
     getChangeIcon,
-    categoryToUrlSlug,
     translateUnit,
 } from "@/lib/utils";
 
@@ -20,7 +19,7 @@ export default function ProductCard({ product }: Props) {
     return (
         <Link
             href={`/product/${product.id}`}
-            className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-md hover:border-green-100 transition-shadow transition-colors duration-200 block"
+            className="bg-white rounded-xl border border-gray-100 p-4 hover:shadow-md hover:border-green-100 transition-shadow duration-200 block"
         >
             {/* Emoji + Change badge */}
             <div className="flex items-start justify-between">
@@ -39,7 +38,9 @@ export default function ProductCard({ product }: Props) {
             <h3 className="font-semibold text-gray-800 mt-3 leading-tight">
                 {product.nameBn}
             </h3>
-            <p className="text-xs text-gray-400 mt-0.5">প্রতি {translateUnit(product.unit)}</p>
+            <p className="text-xs text-gray-400 mt-0.5">
+                প্রতি {translateUnit(product.unit)}
+            </p>
 
             {/* Price */}
             <div className="mt-3">

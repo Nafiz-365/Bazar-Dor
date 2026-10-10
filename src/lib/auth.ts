@@ -14,7 +14,10 @@ if (!globalThis._mongoClient) {
 const client = globalThis._mongoClient;
 const db = client.db("bazardor");
 
-const socialProviders: Record<string, { clientId: string; clientSecret: string }> = {};
+const socialProviders: Record<
+    string,
+    { clientId: string; clientSecret: string }
+> = {};
 
 if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
     socialProviders.google = {
@@ -36,7 +39,8 @@ export const auth = betterAuth({
         enabled: true,
         minPasswordLength: 8,
     },
-    socialProviders: Object.keys(socialProviders).length > 0 ? socialProviders : undefined,
+    socialProviders:
+        Object.keys(socialProviders).length > 0 ? socialProviders : undefined,
     session: {
         expiresIn: 60 * 60 * 24 * 7,
         updateAge: 60 * 60 * 24,

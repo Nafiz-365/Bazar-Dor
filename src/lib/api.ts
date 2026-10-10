@@ -84,17 +84,16 @@ export async function getProductsByCategory(
     return all.filter((p) => p.category === category);
 }
 
-export async function getSingleProduct(idOrSlug: string): Promise<Product | null> {
+export async function getSingleProduct(
+    idOrSlug: string,
+): Promise<Product | null> {
     const data = await fetcher<Product>(`/products/${idOrSlug}`);
     if (data && data.id) return data;
     // Fallback: search across all products by ID or slug
     const all = await getAllProducts();
     return (
-        all.find(
-            (p) =>
-                p.id.toString() === idOrSlug ||
-                p.slug === idOrSlug,
-        ) || null
+        all.find((p) => p.id.toString() === idOrSlug || p.slug === idOrSlug) ||
+        null
     );
 }
 

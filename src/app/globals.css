@@ -12,11 +12,14 @@ html {
 }
 
 /* Ensure form input text is always dark and visible */
-input, select, textarea {
+input,
+select,
+textarea {
     color: #111827 !important;
 }
 
-input::placeholder, textarea::placeholder {
+input::placeholder,
+textarea::placeholder {
     color: #9ca3af !important;
 }
 

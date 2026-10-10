@@ -12,17 +12,17 @@ BazarDor is a Next.js web application that displays the daily prices of essentia
 
 ## 🛠️ Technologies Used
 
-| Technology | Purpose |
-|-----------|---------|
-| **Next.js 16** (App Router) | Core framework & page routing |
-| **TypeScript** | Type safety across the codebase |
-| **Tailwind CSS v4** | Utility-first styling |
-| **DaisyUI v5** | UI component library |
-| **BetterAuth** | Authentication (Email/Password + Google + GitHub OAuth) |
-| **MongoDB Atlas** | Database for user accounts via BetterAuth adapter |
-| **React Hot Toast** | Toast notifications |
-| **Lucide React** | Icon library |
-| **Hind Siliguri** (Google Fonts) | Bengali typography |
+| Technology                       | Purpose                                                 |
+| -------------------------------- | ------------------------------------------------------- |
+| **Next.js 16** (App Router)      | Core framework & page routing                           |
+| **TypeScript**                   | Type safety across the codebase                         |
+| **Tailwind CSS v4**              | Utility-first styling                                   |
+| **DaisyUI v5**                   | UI component library                                    |
+| **BetterAuth**                   | Authentication (Email/Password + Google + GitHub OAuth) |
+| **MongoDB Atlas**                | Database for user accounts via BetterAuth adapter       |
+| **React Hot Toast**              | Toast notifications                                     |
+| **Lucide React**                 | Icon library                                            |
+| **Hind Siliguri** (Google Fonts) | Bengali typography                                      |
 
 ## ✨ Key Features
 
@@ -44,15 +44,15 @@ BazarDor is a Next.js web application that displays the daily prices of essentia
 
 ## 📋 Pages
 
-| Route | Description |
-|-------|-------------|
-| `/` | Home — Hero, price risers, fallers, all products |
-| `/category/[slug]` | Category page with sort dropdown |
-| `/product/[id]` | Product detail page (protected) |
-| `/signin` | Sign in with email/password or social |
-| `/signup` | Register a new account |
-| `/profile` | User profile & update name (protected) |
-| `*` | 404 Not Found page |
+| Route              | Description                                      |
+| ------------------ | ------------------------------------------------ |
+| `/`                | Home — Hero, price risers, fallers, all products |
+| `/category/[slug]` | Category page with sort dropdown                 |
+| `/product/[id]`    | Product detail page (protected)                  |
+| `/signin`          | Sign in with email/password or social            |
+| `/signup`          | Register a new account                           |
+| `/profile`         | User profile & update name (protected)           |
+| `*`                | 404 Not Found page                               |
 
 ## ⚙️ Getting Started
 
@@ -98,7 +98,3 @@ Open [http://localhost:3000](http://localhost:3000).
 ## 🚢 Deployment
 
 Deploy on [Vercel](https://vercel.com) — set all environment variables in the Vercel dashboard and set `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` to your production domain.
-
-## 📜 License
-
-MIT

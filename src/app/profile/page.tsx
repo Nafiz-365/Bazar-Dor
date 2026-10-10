@@ -51,8 +51,12 @@ export default function ProfilePage() {
 
     return (
         <div className="max-w-2xl mx-auto px-4 py-12">
-            <h1 className="text-2xl font-bold text-gray-800 mb-1">আমার প্রোফাইল</h1>
-            <p className="text-sm text-gray-500 mb-8">আপনার অ্যাকাউন্টের বিবরণ ও সেটিংস।</p>
+            <h1 className="text-2xl font-bold text-gray-800 mb-1">
+                আমার প্রোফাইল
+            </h1>
+            <p className="text-sm text-gray-500 mb-8">
+                আপনার অ্যাকাউন্টের বিবরণ ও সেটিংস।
+            </p>
 
             {/* User Info Card */}
             <div className="bg-white rounded-xl border border-gray-100 p-6 mb-6 shadow-sm">
@@ -75,7 +79,9 @@ export default function ProfilePage() {
                             <p className="font-semibold text-gray-800 text-lg">
                                 {session.user.name}
                             </p>
-                            <p className="text-sm text-gray-500">{session.user.email}</p>
+                            <p className="text-sm text-gray-500">
+                                {session.user.email}
+                            </p>
                         </div>
                     </div>
 
@@ -90,8 +96,12 @@ export default function ProfilePage() {
 
                 <div className="mt-8 pt-6 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
-                        <h2 className="font-semibold text-gray-800 text-sm">ব্যক্তিগত তথ্য আপডেট</h2>
-                        <p className="text-xs text-gray-500 mt-0.5">আপনার নাম ও প্রোফাইলের তথ্য পরিবর্তন করুন</p>
+                        <h2 className="font-semibold text-gray-800 text-sm">
+                            ব্যক্তিগত তথ্য আপডেট
+                        </h2>
+                        <p className="text-xs text-gray-500 mt-0.5">
+                            আপনার নাম ও প্রোফাইলের তথ্য পরিবর্তন করুন
+                        </p>
                     </div>
                     {/* C3: Update Information button linking to /profile/update */}
                     <Link
@@ -106,4 +116,3 @@ export default function ProfilePage() {
         </div>
     );
 }
-

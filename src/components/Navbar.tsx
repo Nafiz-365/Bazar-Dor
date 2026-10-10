@@ -9,14 +9,14 @@ import { useSession, signOut } from "@/lib/auth-client";
 import Image from "next/image";
 
 const categories = [
-    { slug: "chal",      nameBn: "চাল",        icon: "🍚" },
-    { slug: "dal",       nameBn: "ডাল",        icon: "🫘" },
-    { slug: "tel",       nameBn: "তেল",        icon: "🛢️" },
-    { slug: "sobji",     nameBn: "সবজি",       icon: "🥬" },
-    { slug: "mach",      nameBn: "মাছ",        icon: "🐟" },
-    { slug: "mangsho",   nameBn: "মাংস",       icon: "🍗" },
-    { slug: "dim-dui",   nameBn: "ডিম-দুধ",   icon: "🥚" },
-    { slug: "mosla",     nameBn: "মসলা",       icon: "🌶️" },
+    { slug: "chal", nameBn: "চাল", icon: "🍚" },
+    { slug: "dal", nameBn: "ডাল", icon: "🫘" },
+    { slug: "tel", nameBn: "তেল", icon: "🛢️" },
+    { slug: "sobji", nameBn: "সবজি", icon: "🥬" },
+    { slug: "mach", nameBn: "মাছ", icon: "🐟" },
+    { slug: "mangsho", nameBn: "মাংস", icon: "🍗" },
+    { slug: "dim-dui", nameBn: "ডিম-দুধ", icon: "🥚" },
+    { slug: "mosla", nameBn: "মসলা", icon: "🌶️" },
 ];
 
 function getBengaliDate(): string {
@@ -46,9 +46,7 @@ function getBengaliDate(): string {
     ];
     const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
     const toBn = (n: number) =>
-        n
-            .toString()
-            .replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
+        n.toString().replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
 
     const day = days[now.getDay()];
     const date = toBn(now.getDate());
