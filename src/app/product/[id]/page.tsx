@@ -20,7 +20,7 @@ export default async function ProductDetailPage({
 }) {
     // Auth check
     const session = await auth.api.getSession({ headers: await headers() });
-    if (!session) redirect("/signin");
+    if (!session) redirect("/signin?redirected=true");
 
     // Fetch product
     const { id } = await params;
