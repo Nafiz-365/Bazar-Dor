@@ -76,7 +76,7 @@ npm install
 Create a `.env` file:
 
 ```env
-NEXT_PUBLIC_API_BASE_URL=https://api.api-store.workers.dev/api/bazardor
+NEXT_PUBLIC_API_BASE_URL=https://openapi.programming-hero.com/api/bazardor
 MONGODB_URI=your_mongodb_uri
 BETTER_AUTH_URL=http://localhost:3000
 BETTER_AUTH_SECRET=your_secret_key
