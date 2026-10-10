@@ -9,14 +9,14 @@ import { useSession, signOut } from "@/lib/auth-client";
 import Image from "next/image";
 
 const categories = [
-    { slug: "chal", nameBn: "চাল", icon: "🍚" },
-    { slug: "dal", nameBn: "ডাল", icon: "🫘" },
-    { slug: "tel", nameBn: "তেল", icon: "🛢️" },
-    { slug: "shobji", nameBn: "সবজি", icon: "🥬" },
-    { slug: "mach", nameBn: "মাছ", icon: "🐟" },
-    { slug: "mangsho", nameBn: "মাংস", icon: "🍗" },
-    { slug: "dim-murgi", nameBn: "ডিম-মুর্গি", icon: "🥚" },
-    { slug: "moshla", nameBn: "মসলা", icon: "🌶️" },
+    { slug: "chal",      nameBn: "চাল",        icon: "🍚" },
+    { slug: "dal",       nameBn: "ডাল",        icon: "🫘" },
+    { slug: "tel",       nameBn: "তেল",        icon: "🛢️" },
+    { slug: "sobji",     nameBn: "সবজি",       icon: "🥬" },
+    { slug: "mach",      nameBn: "মাছ",        icon: "🐟" },
+    { slug: "mangsho",   nameBn: "মাংস",       icon: "🍗" },
+    { slug: "dim-dui",   nameBn: "ডিম-দুধ",   icon: "🥚" },
+    { slug: "mosla",     nameBn: "মসলা",       icon: "🌶️" },
 ];
 
 function getBengaliDate(): string {

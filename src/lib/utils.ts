@@ -20,8 +20,11 @@ export function toBengaliNumber(
  * কমা দিয়ে সংখ্যা format করে তারপর বাংলায় convert করে
  * উদাহরণ: 1850 → "১,৮৫০", 148 → "১৪৮"
  */
-export function formatPrice(price: number): string {
-    const formatted = price.toLocaleString("en-IN");
+export function formatPrice(price: number | undefined | null): string {
+    if (price === undefined || price === null || isNaN(Number(price))) {
+        return "—";
+    }
+    const formatted = Number(price).toLocaleString("en-IN");
     return toBengaliNumber(formatted);
 }
 
@@ -105,11 +108,25 @@ export function translateUnit(unit: string): string {
  * The API's categories endpoint and the product's category field use different values
  * for some categories (e.g. 'shobji' → 'sobji', 'dim-murgi' → 'dim-dui', 'moshla' → 'mosla').
  */
+/**
+ * Maps a URL slug (from the navbar) to the API's category filter value.
+ * The API uses: chal, dal, tel, sobji, mach, mangsho, dim-dui, mosla
+ */
 export function categoryToUrlSlug(apiCategory: string): string {
+    // API already uses the correct slugs — just return as-is
+    // (sobji, dim-dui, mosla are the API's actual values)
+    return apiCategory;
+}
+
+/**
+ * Maps a navbar/URL slug to the API's category filter param.
+ * Navbar slugs like 'shobji' must map to the API's 'sobji'.
+ */
+export function navSlugToApiFilter(navSlug: string): string {
     const map: Record<string, string> = {
         shobji: "sobji",
         "dim-murgi": "dim-dui",
         moshla: "mosla",
     };
-    return map[apiCategory] || apiCategory;
+    return map[navSlug] || navSlug;
 }

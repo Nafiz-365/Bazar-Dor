@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getAllProducts, type Product } from "@/lib/api";
-import { toBengaliNumber } from "@/lib/utils";
+import { formatPrice } from "@/lib/utils";
 
 export default function PriceTicker() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -12,7 +12,6 @@ export default function PriceTicker() {
     useEffect(() => {
         getAllProducts()
             .then((data) => {
-                console.log("Ticker: received", data.length, "products");
                 setProducts(data);
             })
             .catch((err) => {
@@ -65,12 +64,12 @@ export default function PriceTicker() {
                                 {product.nameBn}
                             </span>
                             <span>
-                                {toBengaliNumber(product.today)} টাকা/
+                                {formatPrice(product.today)} টাকা/
                                 {product.unit}
                             </span>
                             <span className={colorClass}>
                                 {icon}{" "}
-                                {toBengaliNumber(Math.abs(pct).toFixed(1))}%
+                                {Math.abs(pct).toFixed(1)}%
                             </span>
                         </span>
                     );
