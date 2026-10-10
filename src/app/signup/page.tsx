@@ -46,8 +46,9 @@ export default function SignUpPage() {
                 setErrorMsg(msg);
                 toast.error(msg);
             } else {
-                toast.success("অ্যাকাউন্ট তৈরি সফল হয়েছে! এখন লগইন করুন");
-                router.push("/signin");
+                toast.success("স্বাগতম! অ্যাকাউন্ট তৈরি হয়েছে।");
+                router.push("/");
+                router.refresh();
             }
         } catch (err: any) {
             const msg = err?.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে। দয়া করে আবার চেষ্টা করুন।";
