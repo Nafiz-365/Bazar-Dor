@@ -62,7 +62,7 @@ export default function CategoryPageClient({
     }, [products, sort]);
 
     return (
-        <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto px-4 py-8 min-h-[60vh]">
             {/* Header */}
             <div className="bg-white rounded-xl border border-gray-100 p-5 mb-5 flex items-center gap-4">
                 <span className="text-4xl">{category.icon}</span>
