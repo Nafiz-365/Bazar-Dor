@@ -1,4 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
+import heroImage from "@/assets/bazar-hero.png";
+
 
 function getBengaliDate(): string {
     const now = new Date();
@@ -39,14 +42,14 @@ function getBengaliDate(): string {
 export default function Hero() {
     const todayDate = getBengaliDate();
     return (
-        <section className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-6 md:p-10 mt-6 flex flex-col md:flex-row items-center gap-8">
+        <section className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-6 sm:p-8 md:p-12 mt-6 flex flex-col md:flex-row items-center gap-6 md:gap-50">
             {/* Left: Text */}
             <div className="flex-1 w-full">
                 <span className="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full mb-3">
                     {todayDate}
                 </span>
 
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-800 leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 leading-tight">
                     আজকের বাজারের দাম এক নজরে
                 </h1>
 
@@ -64,114 +67,15 @@ export default function Hero() {
                 </Link>
             </div>
 
-            {/* Right: Illustration */}
-            <div className="w-48 md:w-64 shrink-0">
-                <svg
-                    viewBox="0 0 300 250"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-auto"
-                >
-                    {/* Basket */}
-                    <path
-                        d="M60 130 L240 130 L220 230 L80 230 Z"
-                        fill="#8B5A2B"
-                        stroke="#5D3A1A"
-                        strokeWidth="2"
-                    />
-                    <rect
-                        x="55"
-                        y="120"
-                        width="190"
-                        height="20"
-                        rx="4"
-                        fill="#A0522D"
-                        stroke="#5D3A1A"
-                        strokeWidth="2"
-                    />
-                    {/* Basket lines */}
-                    <line
-                        x1="90"
-                        y1="130"
-                        x2="85"
-                        y2="230"
-                        stroke="#5D3A1A"
-                        strokeWidth="1.5"
-                        opacity="0.5"
-                    />
-                    <line
-                        x1="120"
-                        y1="130"
-                        x2="115"
-                        y2="230"
-                        stroke="#5D3A1A"
-                        strokeWidth="1.5"
-                        opacity="0.5"
-                    />
-                    <line
-                        x1="150"
-                        y1="130"
-                        x2="150"
-                        y2="230"
-                        stroke="#5D3A1A"
-                        strokeWidth="1.5"
-                        opacity="0.5"
-                    />
-                    <line
-                        x1="180"
-                        y1="130"
-                        x2="185"
-                        y2="230"
-                        stroke="#5D3A1A"
-                        strokeWidth="1.5"
-                        opacity="0.5"
-                    />
-                    <line
-                        x1="210"
-                        y1="130"
-                        x2="215"
-                        y2="230"
-                        stroke="#5D3A1A"
-                        strokeWidth="1.5"
-                        opacity="0.5"
-                    />
-
-                    {/* Fruits/Vegetables */}
-                    {/* Tomato - red */}
-                    <circle cx="115" cy="100" r="24" fill="#EF4444" />
-                    <path
-                        d="M115 78 Q118 70 125 72"
-                        stroke="#16A34A"
-                        strokeWidth="3"
-                        fill="none"
-                    />
-
-                    {/* Green apple */}
-                    <circle cx="180" cy="90" r="28" fill="#22C55E" />
-                    <path
-                        d="M180 62 L182 68 M180 62 L178 68"
-                        stroke="#166534"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                    />
-
-                    {/* Orange */}
-                    <circle cx="155" cy="115" r="20" fill="#F97316" />
-                    <circle cx="152" cy="110" r="2" fill="#EA580C" />
-                    <circle cx="160" cy="118" r="2" fill="#EA580C" />
-
-                    {/* Purple fruit (eggplant/brinjal) */}
-                    <ellipse
-                        cx="95"
-                        cy="115"
-                        rx="15"
-                        ry="20"
-                        fill="#A855F7"
-                        transform="rotate(-20 95 115)"
-                    />
-
-                    {/* Yellow-orange fruit */}
-                    <circle cx="215" cy="110" r="18" fill="#FB923C" />
-                </svg>
+            {/* Right: Hero Image */}
+            <div className="w-48 sm:w-56 md:w-80 shrink-0">
+                <Image
+                    src={heroImage}
+                    alt="Hero Image"
+                    width={500}
+                    height={500}
+                    className="w-full h-auto object-contain"
+                />
             </div>
         </section>
     );

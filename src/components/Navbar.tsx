@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { ShoppingCart, LogOut, Menu, X, User } from "lucide-react";
+import { LogOut, Menu, X, User } from "lucide-react";
 import toast from "react-hot-toast";
 import { useSession, signOut } from "@/lib/auth-client";
 import Image from "next/image";
@@ -81,7 +81,7 @@ const Navbar = () => {
                 {/* Logo */}
                 <Link href="/" className="flex items-center gap-2">
                     <div className="bg-green-600 p-2 rounded-lg">
-                        <ShoppingCart className="w-5 h-5 text-white" />
+                        <span aria-hidden="true">🛒</span>
                     </div>
                     <div>
                         <h1 className="font-bold text-lg text-gray-800 leading-tight">
