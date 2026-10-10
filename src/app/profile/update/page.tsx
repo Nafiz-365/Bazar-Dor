@@ -10,16 +10,13 @@ import toast from "react-hot-toast";
 export default function UpdateProfilePage() {
     const { data: session, isPending } = useSession();
     const router = useRouter();
-    const [name, setName] = useState("");
+    const [name, setName] = useState(() => session?.user?.name ?? "");
     const [updating, setUpdating] = useState(false);
 
     useEffect(() => {
         if (!isPending && !session) {
             toast.error("তথ্য পরিবর্তন করতে সাইন ইন করুন");
             router.push("/signin");
-        }
-        if (session?.user?.name) {
-            setName(session.user.name);
         }
     }, [session, isPending, router]);
 

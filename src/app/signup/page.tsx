@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { signUp, signIn } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { User, Mail, Lock, Loader2, Eye, EyeOff, ShoppingCart, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { User, Mail, Lock, Loader2, Eye, EyeOff, ShoppingCart, ArrowLeft } from "lucide-react";
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -50,8 +50,8 @@ export default function SignUpPage() {
                 router.push("/");
                 router.refresh();
             }
-        } catch (err: any) {
-            const msg = err?.message || "রেজিস্ট্রেশন ব্যর্থ হয়েছে। দয়া করে আবার চেষ্টা করুন।";
+        } catch (err: unknown) {
+            const msg = err instanceof Error ? err.message : "রেজিস্ট্রেশন ব্যর্থ হয়েছে। দয়া করে আবার চেষ্টা করুন।";
             setErrorMsg(msg);
             toast.error(msg);
             console.error(err);
@@ -70,7 +70,7 @@ export default function SignUpPage() {
                 setErrorMsg(msg);
                 toast.error(msg);
             }
-        } catch (err: any) {
+        } catch {
             const msg = `${provider === "google" ? "Google" : "GitHub"} সাইন আপ বর্তমানে কনফিগার করা নেই। দয়া করে ফর্ম পূরণ করে রেজিস্টার করুন।`;
             setErrorMsg(msg);
             toast.error(msg);
@@ -98,7 +98,7 @@ export default function SignUpPage() {
                     {/* Top Decorative Header */}
                     <div className="text-center mb-7">
                         <Link href="/" className="inline-flex items-center gap-2 mb-3 group">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-green-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-green-600/20 group-hover:scale-105 transition">
+                            <div className="w-10 h-10 rounded-xl bg-linear-to-tr from-green-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-green-600/20 group-hover:scale-105 transition">
                                 <ShoppingCart className="w-5 h-5" />
                             </div>
                             <span className="font-bold text-xl text-gray-900 tracking-tight">
@@ -200,7 +200,7 @@ export default function SignUpPage() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full mt-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-3 rounded-xl transition font-semibold text-sm shadow-md shadow-green-600/20 disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
+                            className="w-full mt-2 bg-linear-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white py-3 rounded-xl transition font-semibold text-sm shadow-md shadow-green-600/20 disabled:opacity-60 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]"
                         >
                             {loading ? (
                                 <>

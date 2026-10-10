@@ -103,7 +103,7 @@ export default async function ProductDetailPage({
                     </div>
                 </div>
 
-                <div className="bg-gray-50 rounded-xl p-4 text-center min-w-[160px] w-full md:w-auto">
+                <div className="bg-gray-50 rounded-xl p-4 text-center min-w-40 w-full md:w-auto">
                     <p className="text-xs text-gray-500 mb-1">আজকের দাম</p>
                     <p className="text-3xl font-bold text-gray-800">
                         {formatPrice(product.today)}
