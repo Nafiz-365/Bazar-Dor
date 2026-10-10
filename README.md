@@ -8,7 +8,7 @@ BazarDor is a Next.js web application that displays the daily prices of essentia
 
 ## 🚀 Live Demo
 
-> Deploy to Vercel and add your link here.
+🔗 [Visit BazarDor](https://bazar-dor-bd63c31fa7ff.herokuapp.com/)
 
 ## 🛠️ Technologies Used
 
@@ -97,4 +97,4 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## 🚢 Deployment
 
-Deploy on [Vercel](https://vercel.com) — set all environment variables in the Vercel dashboard and set `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` to your production domain.
+Deploy on [Heroku](https://www.heroku.com/) — set all environment variables in the Heroku app configuration and set `BETTER_AUTH_URL` and `NEXT_PUBLIC_APP_URL` to your production domain.

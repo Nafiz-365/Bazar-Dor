@@ -85,7 +85,7 @@ const Navbar = () => {
                     </div>
                     <div>
                         <h1 className="font-bold text-lg text-gray-800 leading-tight">
-                            বাজার দর ?
+                            বাজার দর
                         </h1>
                         <p className="text-xs text-gray-500 leading-tight">
                             {todayDate}
