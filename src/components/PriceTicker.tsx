@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getAllProducts, type Product } from "@/lib/api";
-import { formatPrice } from "@/lib/utils";
+import { formatPrice, toBengaliNumber, translateUnit } from "@/lib/utils";
 
 export default function PriceTicker() {
     const [products, setProducts] = useState<Product[]>([]);
@@ -65,11 +65,11 @@ export default function PriceTicker() {
                             </span>
                             <span>
                                 {formatPrice(product.today)} টাকা/
-                                {product.unit}
+                                {translateUnit(product.unit)}
                             </span>
                             <span className={colorClass}>
                                 {icon}{" "}
-                                {Math.abs(pct).toFixed(1)}%
+                                {toBengaliNumber(Math.abs(pct).toFixed(1))}%
                             </span>
                         </span>
                     );

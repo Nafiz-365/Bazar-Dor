@@ -6,6 +6,7 @@ import {
     getChangeColor,
     getChangeIcon,
     categoryToUrlSlug,
+    translateUnit,
 } from "@/lib/utils";
 
 interface Props {
@@ -38,7 +39,7 @@ export default function ProductCard({ product }: Props) {
             <h3 className="font-semibold text-gray-800 mt-3 leading-tight">
                 {product.nameBn}
             </h3>
-            <p className="text-xs text-gray-400 mt-0.5">প্রতি {product.unit}</p>
+            <p className="text-xs text-gray-400 mt-0.5">প্রতি {translateUnit(product.unit)}</p>
 
             {/* Price */}
             <div className="mt-3">

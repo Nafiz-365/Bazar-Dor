@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import type { Category, Product } from "@/lib/api";
+import { getProductsByCategory, type Category, type Product } from "@/lib/api";
 import ProductCard from "./ProductCard";
 import { toBengaliNumber } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
@@ -12,39 +12,42 @@ type SortOption = "default" | "price-asc" | "price-desc";
 interface Props {
     category: Category;
     apiFilter: string;
+    initialProducts?: Product[];
 }
 
-const BASE_URLS = [
-    "https://api.api-store.workers.dev/api/bazardor",
-    "https://api.abcz.workers.dev/api/bazardor",
-];
-
-async function fetchWithFallback(endpoint: string): Promise<Product[]> {
-    for (const base of BASE_URLS) {
-        try {
-            const res = await fetch(`${base}${endpoint}`);
-            if (res.ok) {
-                const data = await res.json();
-                return data;
-            }
-        } catch {
-            // try next
-        }
-    }
-    return [];
-}
-
-export default function CategoryPageClient({ category, apiFilter }: Props) {
+export default function CategoryPageClient({
+    category,
+    apiFilter,
+    initialProducts = [],
+}: Props) {
     const [sort, setSort] = useState<SortOption>("default");
-    const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [products, setProducts] = useState<Product[]>(initialProducts);
+    const [loading, setLoading] = useState(initialProducts.length === 0);
 
     useEffect(() => {
-        setLoading(true);
-        fetchWithFallback(`/products?category=${encodeURIComponent(apiFilter)}`)
-            .then((data) => setProducts(data))
-            .catch(() => setProducts([]))
-            .finally(() => setLoading(false));
+        // If initialProducts was already passed and matches, we don't need to refetch immediately
+        let cancelled = false;
+        if (initialProducts.length === 0) {
+            setLoading(true);
+        }
+        getProductsByCategory(apiFilter)
+            .then((data) => {
+                if (!cancelled) {
+                    setProducts(data);
+                }
+            })
+            .catch(() => {
+                if (!cancelled && products.length === 0) {
+                    setProducts([]);
+                }
+            })
+            .finally(() => {
+                if (!cancelled) setLoading(false);
+            });
+
+        return () => {
+            cancelled = true;
+        };
     }, [apiFilter]);
 
     const sortedProducts = useMemo(() => {

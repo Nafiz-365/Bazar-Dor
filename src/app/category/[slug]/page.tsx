@@ -24,6 +24,10 @@ const CATEGORY_INFO: Record<
     moshla:     { nameBn: "মসলা",      icon: "🌶️", apiFilter: "mosla" },
 };
 
+import { getProductsByCategory } from "@/lib/api";
+
+export const dynamic = "force-dynamic";
+
 export default async function CategoryPage({
     params,
 }: {
@@ -42,10 +46,13 @@ export default async function CategoryPage({
         icon: catInfo.icon,
     };
 
+    const initialProducts = await getProductsByCategory(catInfo.apiFilter);
+
     return (
         <CategoryPageClient
             category={category}
             apiFilter={catInfo.apiFilter}
+            initialProducts={initialProducts}
         />
     );
 }
