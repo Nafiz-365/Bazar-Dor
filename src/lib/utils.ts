@@ -7,9 +7,9 @@
  * উদাহরণ: 148 → "১৪৮", 1850 → "১৮৫০"
  */
 
-export function toBengaliNumber(
+export const toBengaliNumber = (
     num: number | string | undefined | null,
-): string {
+): string => {
     if (num === undefined || num === null) {
         return "০";
     }
@@ -21,30 +21,30 @@ export function toBengaliNumber(
     const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
     // Replace every digit — commas, dots, minus signs stay intact
     return str.replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
-}
+};
 /**
  * কমা দিয়ে সংখ্যা format করে তারপর বাংলায় convert করে
  * উদাহরণ: 1850 → "১,৮৫০", 148 → "১৪৮"
  */
-export function formatPrice(price: number | undefined | null): string {
+export const formatPrice = (price: number | undefined | null): string => {
     if (price === undefined || price === null || isNaN(Number(price))) {
         return "—";
     }
     const formatted = Number(price).toLocaleString("en-IN");
     return toBengaliNumber(formatted);
-}
+};
 
 /**
  * Percentage কে বাংলায় format করে
  * উদাহরণ: 2.1 → "২.১", 11.0 → "১১.০"
  */
-export function formatPercent(percent: number | undefined | null): string {
+export const formatPercent = (percent: number | undefined | null): string => {
     if (percent === undefined || percent === null || isNaN(Number(percent))) {
         return "০.০";
     }
     const abs = Math.abs(percent).toFixed(1);
     return toBengaliNumber(abs);
-}
+};
 
 // ============================================
 // Change Badge Helpers
@@ -53,29 +53,29 @@ export function formatPercent(percent: number | undefined | null): string {
 /**
  * দাম বাড়লে লাল, কমলে সবুজ, অপরিবর্তিত থাকলে ধূসর
  */
-export function getChangeColor(type: "up" | "down" | "flat"): string {
+export const getChangeColor = (type: "up" | "down" | "flat"): string => {
     if (type === "up") return "text-red-500";
     if (type === "down") return "text-green-500";
     return "text-gray-400";
-}
+};
 
 /**
  * দাম বাড়লে ▲, কমলে ▼, অপরিবর্তিত থাকলে —
  */
-export function getChangeIcon(type: "up" | "down" | "flat"): string {
+export const getChangeIcon = (type: "up" | "down" | "flat"): string => {
     if (type === "up") return "▲";
     if (type === "down") return "▼";
     return "—";
-}
+};
 
 /**
  * Badge-এর background color
  */
-export function getChangeBg(type: "up" | "down" | "flat"): string {
+export const getChangeBg = (type: "up" | "down" | "flat"): string => {
     if (type === "up") return "bg-red-50";
     if (type === "down") return "bg-green-50";
     return "bg-gray-50";
-}
+};
 
 // ============================================
 // Slug Helpers
@@ -84,18 +84,18 @@ export function getChangeBg(type: "up" | "down" | "flat"): string {
 /**
  * Product name থেকে URL-safe slug বানায় (Bangla character গুলো maintain করে)
  */
-export function createSlug(text: string): string {
+export const createSlug = (text: string): string => {
     return text
         .toLowerCase()
         .trim()
         .replace(/\s+/g, "-")
         .replace(/[^\w\u0980-\u09FF-]/g, "");
-}
+};
 
 /**
  * Unit-কে বাংলায় translate করে
  */
-export function translateUnit(unit: string): string {
+export const translateUnit = (unit: string): string => {
     const map: Record<string, string> = {
         kg: "কেজি",
         litre: "লিটার",
@@ -103,7 +103,7 @@ export function translateUnit(unit: string): string {
         piece: "পিস",
     };
     return map[unit] || unit;
-}
+};
 
 // ============================================
 // Category Slug Helpers
@@ -118,21 +118,21 @@ export function translateUnit(unit: string): string {
  * Maps a URL slug (from the navbar) to the API's category filter value.
  * The API uses: chal, dal, tel, sobji, mach, mangsho, dim-dui, mosla
  */
-export function categoryToUrlSlug(apiCategory: string): string {
+export const categoryToUrlSlug = (apiCategory: string): string => {
     // API already uses the correct slugs — just return as-is
     // (sobji, dim-dui, mosla are the API's actual values)
     return apiCategory;
-}
+};
 
 /**
  * Maps a navbar/URL slug to the API's category filter param.
  * Navbar slugs like 'shobji' must map to the API's 'sobji'.
  */
-export function navSlugToApiFilter(navSlug: string): string {
+export const navSlugToApiFilter = (navSlug: string): string => {
     const map: Record<string, string> = {
         shobji: "sobji",
         "dim-murgi": "dim-dui",
         moshla: "mosla",
     };
     return map[navSlug] || navSlug;
-}
+};

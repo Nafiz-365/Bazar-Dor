@@ -12,7 +12,7 @@ interface Props {
     product: Product;
 }
 
-export default function ProductCard({ product }: Props) {
+const ProductCard = ({ product }: Props) => {
     const dir = product.change?.dir ?? "flat";
     const pct = product.change?.pct ?? 0;
 
@@ -54,4 +54,6 @@ export default function ProductCard({ product }: Props) {
             </div>
         </Link>
     );
-}
+};
+
+export default ProductCard;

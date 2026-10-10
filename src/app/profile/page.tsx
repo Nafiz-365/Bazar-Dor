@@ -8,7 +8,7 @@ import Link from "next/link";
 import { User, LogOut, Edit3 } from "lucide-react";
 import toast from "react-hot-toast";
 
-export default function ProfilePage() {
+const ProfilePage = () => {
     const { data: session, isPending } = useSession();
     const router = useRouter();
 
@@ -115,4 +115,6 @@ export default function ProfilePage() {
             </div>
         </div>
     );
-}
+};
+
+export default ProfilePage;

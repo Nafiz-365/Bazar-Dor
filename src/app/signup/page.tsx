@@ -16,7 +16,7 @@ import {
     ArrowLeft,
 } from "lucide-react";
 
-export default function SignUpPage() {
+const SignUpPage = () => {
     const router = useRouter();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -309,4 +309,6 @@ export default function SignUpPage() {
             </div>
         </div>
     );
-}
+};
+
+export default SignUpPage;

@@ -15,7 +15,7 @@ import {
     ArrowLeft,
 } from "lucide-react";
 
-function SignInContent() {
+const SignInContent = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [email, setEmail] = useState("");
@@ -276,12 +276,14 @@ function SignInContent() {
             </div>
         </div>
     );
-}
+};
 
-export default function SignInPage() {
+const SignInPage = () => {
     return (
         <Suspense fallback={null}>
             <SignInContent />
         </Suspense>
     );
-}
+};
+
+export default SignInPage;

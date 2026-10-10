@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ArrowLeft, Save, Loader2, User } from "lucide-react";
 import toast from "react-hot-toast";
 
-export default function UpdateProfilePage() {
+const UpdateProfilePage = () => {
     const { data: session, isPending } = useSession();
     const router = useRouter();
     const [name, setName] = useState(() => session?.user?.name ?? "");
@@ -137,4 +137,6 @@ export default function UpdateProfilePage() {
             </div>
         </div>
     );
-}
+};
+
+export default UpdateProfilePage;

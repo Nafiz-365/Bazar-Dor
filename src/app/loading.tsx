@@ -1,4 +1,4 @@
-export default function Loading() {
+const Loading = () => {
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
             {/* Hero skeleton */}
@@ -44,4 +44,5 @@ export default function Loading() {
             </div>
         </div>
     );
-}
+};
+export default Loading;

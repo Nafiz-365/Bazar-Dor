@@ -1,3 +1,4 @@
+import React from "react";
 import { notFound } from "next/navigation";
 import CategoryPageClient from "@/components/CategoryPageClient";
 import type { Category } from "@/lib/api";
@@ -28,11 +29,11 @@ import { getProductsByCategory } from "@/lib/api";
 
 export const dynamic = "force-dynamic";
 
-export default async function CategoryPage({
+const CategoryPage = async ({
     params,
 }: {
     params: Promise<{ slug: string }>;
-}) {
+}) => {
     const { slug } = await params;
 
     // Invalid slug? → 404
@@ -56,4 +57,6 @@ export default async function CategoryPage({
             initialProducts={initialProducts}
         />
     );
-}
+};
+
+export default CategoryPage;

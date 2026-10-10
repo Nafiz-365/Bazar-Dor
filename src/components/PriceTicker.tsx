@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getAllProducts, type Product } from "@/lib/api";
 import { formatPrice, toBengaliNumber, translateUnit } from "@/lib/utils";
 
-export default function PriceTicker() {
+const PriceTicker = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -77,4 +77,6 @@ export default function PriceTicker() {
             </div>
         </div>
     );
-}
+};
+
+export default PriceTicker;

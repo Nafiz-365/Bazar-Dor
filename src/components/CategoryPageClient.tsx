@@ -15,11 +15,11 @@ interface Props {
     initialProducts?: Product[];
 }
 
-export default function CategoryPageClient({
+const CategoryPageClient = ({
     category,
     apiFilter,
     initialProducts = [],
-}: Props) {
+}: Props) => {
     const [sort, setSort] = useState<SortOption>("default");
     const [products, setProducts] = useState<Product[]>(initialProducts);
     const [loading, setLoading] = useState(initialProducts.length === 0);
@@ -144,4 +144,6 @@ export default function CategoryPageClient({
             )}
         </div>
     );
-}
+};
+
+export default CategoryPageClient;

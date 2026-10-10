@@ -1,4 +1,6 @@
-export default function Loading() {
+import React from "react";
+
+const loading = () => {
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
             {/* Breadcrumb skeleton */}
@@ -39,4 +41,6 @@ export default function Loading() {
             </div>
         </div>
     );
-}
+};
+
+export default loading;

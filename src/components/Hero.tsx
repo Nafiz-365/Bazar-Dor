@@ -2,8 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import heroImage from "@/assets/bazar-hero.png";
 
-
-function getBengaliDate(): string {
+const getBengaliDate = (): string => {
     const now = new Date();
     const days = [
         "রবিবার",
@@ -37,9 +36,9 @@ function getBengaliDate(): string {
     const month = months[now.getMonth()];
     const year = toBn(now.getFullYear());
     return `${day}, ${date} ${month}, ${year}`;
-}
+};
 
-export default function Hero() {
+const Hero = () => {
     const todayDate = getBengaliDate();
     return (
         <section className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-6 sm:p-8 md:p-12 mt-6 flex flex-col md:flex-row items-center gap-6 md:gap-50">
@@ -79,4 +78,6 @@ export default function Hero() {
             </div>
         </section>
     );
-}
+};
+
+export default Hero;
