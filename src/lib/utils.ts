@@ -10,11 +10,17 @@
 export function toBengaliNumber(
     num: number | string | undefined | null,
 ): string {
-    if (num === undefined || num === null || isNaN(Number(num))) {
+    if (num === undefined || num === null) {
+        return "০";
+    }
+    const str = num.toString();
+    // Check if string contains at least one digit; if not, return "০"
+    if (str.trim() === "" || !/\d/.test(str)) {
         return "০";
     }
     const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
-    return num.toString().replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
+    // Replace every digit — commas, dots, minus signs stay intact
+    return str.replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
 }
 /**
  * কমা দিয়ে সংখ্যা format করে তারপর বাংলায় convert করে
