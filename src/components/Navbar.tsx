@@ -20,41 +20,12 @@ const categories = [
 ];
 
 const getBengaliDate = (): string => {
-    const now = new Date();
-    const days = [
-        "রবিবার",
-        "সোমবার",
-        "মঙ্গলবার",
-        "বুধবার",
-        "বৃহস্পতিবার",
-        "শুক্রবার",
-        "শনিবার",
-    ];
-    const months = [
-        "জানুয়ারি",
-        "ফেব্রুয়ারি",
-        "মার্চ",
-        "এপ্রিল",
-        "মে",
-        "জুন",
-        "জুলাই",
-        "আগস্ট",
-        "সেপ্টেম্বর",
-        "অক্টোবর",
-        "নভেম্বর",
-        "ডিসেম্বর",
-    ];
-    const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
-    const toBn = (n: number) =>
-        n.toString().replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
-
-    const day = days[now.getDay()];
-    const date = toBn(now.getDate());
-    const month = months[now.getMonth()];
-    const year = toBn(now.getFullYear());
-    return `${day}, ${date} ${month}, ${year}`;
+    return new Date().toLocaleDateString("bn-BD", {
+        dateStyle: "full",
+    });
 };
 
+console.log(getBengaliDate());
 const Navbar = () => {
     const { data: session } = useSession();
     const pathname = usePathname();

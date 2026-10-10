@@ -3,39 +3,9 @@ import Link from "next/link";
 import heroImage from "@/assets/bazar-hero.png";
 
 const getBengaliDate = (): string => {
-    const now = new Date();
-    const days = [
-        "রবিবার",
-        "সোমবার",
-        "মঙ্গলবার",
-        "বুধবার",
-        "বৃহস্পতিবার",
-        "শুক্রবার",
-        "শনিবার",
-    ];
-    const months = [
-        "জানুয়ারি",
-        "ফেব্রুয়ারি",
-        "মার্চ",
-        "এপ্রিল",
-        "মে",
-        "জুন",
-        "জুলাই",
-        "আগস্ট",
-        "সেপ্টেম্বর",
-        "অক্টোবর",
-        "নভেম্বর",
-        "ডিসেম্বর",
-    ];
-    const bengaliDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
-    const toBn = (n: number) =>
-        n.toString().replace(/\d/g, (d) => bengaliDigits[parseInt(d)]);
-
-    const day = days[now.getDay()];
-    const date = toBn(now.getDate());
-    const month = months[now.getMonth()];
-    const year = toBn(now.getFullYear());
-    return `${day}, ${date} ${month}, ${year}`;
+    return new Date().toLocaleDateString("bn-BD", {
+        dateStyle: "full",
+    });
 };
 
 const Hero = () => {
@@ -44,7 +14,7 @@ const Hero = () => {
         <section className="bg-linear-to-br from-green-50 to-emerald-50 rounded-2xl p-6 sm:p-8 md:p-12 mt-6 flex flex-col md:flex-row items-center gap-6 md:gap-50">
             {/* Left: Text */}
             <div className="flex-1 w-full">
-                <span className="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full mb-3">
+                <span className="inline-block bg-green-100 text-green-900 text-xs font-light px-3 py-1 rounded-full mb-3 border border-green-200">
                     {todayDate}
                 </span>
 
